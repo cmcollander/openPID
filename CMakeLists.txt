@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 pico_sdk_init()
 
-add_executable(${PROJECT_NAME} openpid.cpp pio_rotary_encoder.cpp SERLCD_I2C.cpp)
+add_executable(${PROJECT_NAME} openpid.cpp pio_rotary_encoder.cpp SERLCD_I2C.cpp JOYSTICK_I2C.cpp)
 
 pico_generate_pio_header(${PROJECT_NAME} ${CMAKE_CURRENT_LIST_DIR}/pio_rotary_encoder.pio)
 

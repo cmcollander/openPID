@@ -1,8 +1,4 @@
-#include "pio_rotary_encoder.pio.h"
 #include "pio_rotary_encoder.h"
-#include "hardware/pio.h"
-#include "hardware/irq.h"
-
 
 RotaryEncoder::RotaryEncoder(uint rotary_encoder_A)
 {

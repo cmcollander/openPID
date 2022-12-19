@@ -1,5 +1,8 @@
-#ifndef PIO_ROTARY_ENCODER_H
-#define PIO_ROTARY_ENCODER_H
+#pragma once
+
+#include "pio_rotary_encoder.pio.h"
+#include "hardware/pio.h"
+#include "hardware/irq.h"
 
 class RotaryEncoder
 {
@@ -14,5 +17,3 @@ private:
     uint sm;
     static int rotation;
 };
-
-#endif

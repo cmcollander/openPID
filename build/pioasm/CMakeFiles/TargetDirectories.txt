@@ -1,0 +1,3 @@
+/home/cmcollander/rp2040/openPID/build/pioasm/CMakeFiles/pioasm.dir
+/home/cmcollander/rp2040/openPID/build/pioasm/CMakeFiles/edit_cache.dir
+/home/cmcollander/rp2040/openPID/build/pioasm/CMakeFiles/rebuild_cache.dir
