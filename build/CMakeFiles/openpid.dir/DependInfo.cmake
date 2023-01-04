@@ -24,7 +24,7 @@ set(CMAKE_ASM_COMPILER_ID "GNU")
 
 # Preprocessor definitions for this target.
 set(CMAKE_TARGET_DEFINITIONS_ASM
-  "CFG_TUSB_DEBUG=0"
+  "CFG_TUSB_DEBUG=1"
   "CFG_TUSB_MCU=OPT_MCU_RP2040"
   "CFG_TUSB_OS=OPT_OS_PICO"
   "LIB_PICO_BIT_OPS=1"
@@ -59,7 +59,7 @@ set(CMAKE_TARGET_DEFINITIONS_ASM
   "LIB_PICO_UTIL=1"
   "PICO_BOARD=\"pico\""
   "PICO_BUILD=1"
-  "PICO_CMAKE_BUILD_TYPE=\"Release\""
+  "PICO_CMAKE_BUILD_TYPE=\"Debug\""
   "PICO_COPY_TO_RAM=0"
   "PICO_CXX_ENABLE_EXCEPTIONS=0"
   "PICO_NO_FLASH=0"
@@ -184,6 +184,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/cmcollander/rp2040/openPID/SERLCD_I2C.cpp" "CMakeFiles/openpid.dir/SERLCD_I2C.cpp.obj" "gcc" "CMakeFiles/openpid.dir/SERLCD_I2C.cpp.obj.d"
   "/home/cmcollander/pico/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp" "CMakeFiles/openpid.dir/home/cmcollander/pico/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp.obj" "gcc" "CMakeFiles/openpid.dir/home/cmcollander/pico/pico-sdk/src/rp2_common/pico_standard_link/new_delete.cpp.obj.d"
   "/home/cmcollander/rp2040/openPID/openpid.cpp" "CMakeFiles/openpid.dir/openpid.cpp.obj" "gcc" "CMakeFiles/openpid.dir/openpid.cpp.obj.d"
+  "/home/cmcollander/rp2040/openPID/pid.cpp" "CMakeFiles/openpid.dir/pid.cpp.obj" "gcc" "CMakeFiles/openpid.dir/pid.cpp.obj.d"
   "/home/cmcollander/rp2040/openPID/pio_rotary_encoder.cpp" "CMakeFiles/openpid.dir/pio_rotary_encoder.cpp.obj" "gcc" "CMakeFiles/openpid.dir/pio_rotary_encoder.cpp.obj.d"
   )
 

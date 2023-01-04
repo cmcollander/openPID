@@ -1,6 +1,6 @@
 CMakeFiles/openpid.dir/JOYSTICK_I2C.cpp.obj: \
  /home/cmcollander/rp2040/openPID/JOYSTICK_I2C.cpp \
- /home/cmcollander/rp2040/openPID/JOYSTICK_I2C.hpp \
+ /home/cmcollander/rp2040/openPID/JOYSTICK_I2C.h \
  /home/cmcollander/pico/pico-sdk/src/rp2_common/hardware_gpio/include/hardware/gpio.h \
  /home/cmcollander/pico/pico-sdk/src/common/pico_base/include/pico.h \
  /home/cmcollander/pico/pico-sdk/src/common/pico_base/include/pico/types.h \

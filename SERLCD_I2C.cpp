@@ -1,4 +1,4 @@
-#include "SERLCD_I2C.hpp"
+#include "SERLCD_I2C.h"
 
 SERLCD_I2C::SERLCD_I2C(byte address, byte columns, byte rows, i2c_inst *I2C) noexcept
     : address(address), columns(columns), rows(rows), I2C_instance(I2C)

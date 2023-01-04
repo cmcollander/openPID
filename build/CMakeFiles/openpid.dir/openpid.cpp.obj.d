@@ -95,6 +95,27 @@ CMakeFiles/openpid.dir/openpid.cpp.obj: \
  /usr/include/newlib/c++/10.3.1/cstdint \
  /usr/include/newlib/c++/10.3.1/pstl/glue_memory_defs.h \
  /usr/include/newlib/c++/10.3.1/pstl/execution_defs.h \
+ /usr/include/newlib/c++/10.3.1/string \
+ /usr/include/newlib/c++/10.3.1/bits/char_traits.h \
+ /usr/include/newlib/c++/10.3.1/bits/localefwd.h \
+ /usr/include/newlib/c++/10.3.1/arm-none-eabi/thumb/v6-m/nofp/bits/c++locale.h \
+ /usr/include/newlib/c++/10.3.1/clocale /usr/include/newlib/locale.h \
+ /usr/include/newlib/c++/10.3.1/cctype /usr/include/newlib/ctype.h \
+ /usr/include/newlib/c++/10.3.1/bits/ostream_insert.h \
+ /usr/include/newlib/c++/10.3.1/bits/cxxabi_forced.h \
+ /usr/include/newlib/c++/10.3.1/bits/basic_string.h \
+ /usr/include/newlib/c++/10.3.1/string_view \
+ /usr/include/newlib/c++/10.3.1/bits/string_view.tcc \
+ /usr/include/newlib/c++/10.3.1/ext/string_conversions.h \
+ /usr/include/newlib/c++/10.3.1/cstdlib \
+ /usr/include/newlib/c++/10.3.1/stdlib.h /usr/include/newlib/stdlib.h \
+ /usr/include/newlib/machine/stdlib.h /usr/include/newlib/alloca.h \
+ /usr/include/newlib/c++/10.3.1/bits/std_abs.h \
+ /usr/include/newlib/c++/10.3.1/cstdio \
+ /usr/include/newlib/c++/10.3.1/cerrno /usr/include/newlib/errno.h \
+ /usr/include/newlib/sys/errno.h \
+ /usr/include/newlib/c++/10.3.1/bits/charconv.h \
+ /usr/include/newlib/c++/10.3.1/bits/basic_string.tcc \
  /home/cmcollander/pico/pico-sdk/src/common/pico_stdlib/include/pico/stdlib.h \
  /home/cmcollander/pico/pico-sdk/src/common/pico_base/include/pico.h \
  /home/cmcollander/pico/pico-sdk/src/common/pico_base/include/pico/types.h \
@@ -141,29 +162,45 @@ CMakeFiles/openpid.dir/openpid.cpp.obj: \
  /home/cmcollander/pico/pico-sdk/src/rp2040/hardware_regs/include/hardware/regs/pio.h \
  /home/cmcollander/pico/pico-sdk/src/rp2_common/hardware_pio/include/hardware/pio_instructions.h \
  /home/cmcollander/rp2040/openPID/pio_rotary_encoder.h \
- /home/cmcollander/rp2040/openPID/SERLCD_I2C.hpp \
+ /home/cmcollander/rp2040/openPID/SERLCD_I2C.h \
  /home/cmcollander/pico/pico-sdk/src/rp2_common/hardware_i2c/include/hardware/i2c.h \
  /home/cmcollander/pico/pico-sdk/src/rp2040/hardware_structs/include/hardware/structs/i2c.h \
  /home/cmcollander/pico/pico-sdk/src/rp2040/hardware_regs/include/hardware/regs/i2c.h \
- /usr/include/newlib/c++/10.3.1/string_view \
- /usr/include/newlib/c++/10.3.1/bits/char_traits.h \
- /usr/include/newlib/c++/10.3.1/bits/ostream_insert.h \
- /usr/include/newlib/c++/10.3.1/bits/cxxabi_forced.h \
- /usr/include/newlib/c++/10.3.1/bits/string_view.tcc \
- /usr/include/newlib/c++/10.3.1/string \
- /usr/include/newlib/c++/10.3.1/bits/localefwd.h \
- /usr/include/newlib/c++/10.3.1/arm-none-eabi/thumb/v6-m/nofp/bits/c++locale.h \
- /usr/include/newlib/c++/10.3.1/clocale /usr/include/newlib/locale.h \
- /usr/include/newlib/c++/10.3.1/cctype /usr/include/newlib/ctype.h \
- /usr/include/newlib/c++/10.3.1/bits/basic_string.h \
- /usr/include/newlib/c++/10.3.1/ext/string_conversions.h \
- /usr/include/newlib/c++/10.3.1/cstdlib \
- /usr/include/newlib/c++/10.3.1/stdlib.h /usr/include/newlib/stdlib.h \
- /usr/include/newlib/machine/stdlib.h /usr/include/newlib/alloca.h \
- /usr/include/newlib/c++/10.3.1/bits/std_abs.h \
- /usr/include/newlib/c++/10.3.1/cstdio \
- /usr/include/newlib/c++/10.3.1/cerrno /usr/include/newlib/errno.h \
- /usr/include/newlib/sys/errno.h \
- /usr/include/newlib/c++/10.3.1/bits/charconv.h \
- /usr/include/newlib/c++/10.3.1/bits/basic_string.tcc \
- /home/cmcollander/rp2040/openPID/JOYSTICK_I2C.hpp
+ /home/cmcollander/rp2040/openPID/JOYSTICK_I2C.h \
+ /home/cmcollander/rp2040/openPID/pid.h \
+ /usr/include/newlib/c++/10.3.1/cmath \
+ /usr/include/newlib/c++/10.3.1/math.h /usr/include/newlib/math.h \
+ /usr/include/newlib/c++/10.3.1/bits/specfun.h \
+ /usr/include/newlib/c++/10.3.1/limits \
+ /usr/include/newlib/c++/10.3.1/tr1/gamma.tcc \
+ /usr/include/newlib/c++/10.3.1/tr1/special_function_util.h \
+ /usr/include/newlib/c++/10.3.1/tr1/bessel_function.tcc \
+ /usr/include/newlib/c++/10.3.1/tr1/beta_function.tcc \
+ /usr/include/newlib/c++/10.3.1/tr1/ell_integral.tcc \
+ /usr/include/newlib/c++/10.3.1/tr1/exp_integral.tcc \
+ /usr/include/newlib/c++/10.3.1/tr1/hypergeometric.tcc \
+ /usr/include/newlib/c++/10.3.1/tr1/legendre_function.tcc \
+ /usr/include/newlib/c++/10.3.1/tr1/modified_bessel_func.tcc \
+ /usr/include/newlib/c++/10.3.1/tr1/poly_hermite.tcc \
+ /usr/include/newlib/c++/10.3.1/tr1/poly_laguerre.tcc \
+ /usr/include/newlib/c++/10.3.1/tr1/riemann_zeta.tcc \
+ /usr/include/newlib/c++/10.3.1/algorithm \
+ /usr/include/newlib/c++/10.3.1/bits/stl_algo.h \
+ /usr/include/newlib/c++/10.3.1/bits/algorithmfwd.h \
+ /usr/include/newlib/c++/10.3.1/bits/stl_heap.h \
+ /usr/include/newlib/c++/10.3.1/bits/uniform_int_dist.h \
+ /usr/include/newlib/c++/10.3.1/pstl/glue_algorithm_defs.h \
+ /usr/include/newlib/c++/10.3.1/functional \
+ /usr/include/newlib/c++/10.3.1/bits/std_function.h \
+ /usr/include/newlib/c++/10.3.1/unordered_map \
+ /usr/include/newlib/c++/10.3.1/bits/hashtable.h \
+ /usr/include/newlib/c++/10.3.1/bits/hashtable_policy.h \
+ /usr/include/newlib/c++/10.3.1/bits/node_handle.h \
+ /usr/include/newlib/c++/10.3.1/optional \
+ /usr/include/newlib/c++/10.3.1/bits/enable_special_members.h \
+ /usr/include/newlib/c++/10.3.1/bits/unordered_map.h \
+ /usr/include/newlib/c++/10.3.1/bits/erase_if.h \
+ /usr/include/newlib/c++/10.3.1/vector \
+ /usr/include/newlib/c++/10.3.1/bits/stl_vector.h \
+ /usr/include/newlib/c++/10.3.1/bits/stl_bvector.h \
+ /usr/include/newlib/c++/10.3.1/bits/vector.tcc

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <memory>
+#include <string>
 
 #include "pico/stdlib.h"
 #include "pico/binary_info/code.h"
@@ -7,28 +8,33 @@
 #include "pio_rotary_encoder.pio.h"
 #include "pio_rotary_encoder.h"
 
-#include "SERLCD_I2C.hpp"
-#include "JOYSTICK_I2C.hpp"
+#include "SERLCD_I2C.h"
+#include "JOYSTICK_I2C.h"
+
+#include "pid.h"
+
+#define P_INC 0.01
+#define I_INC 0.0001
+#define D_INC 0.001
+#define I_LIMIT_INC 0.1
 
 // This represents a state machine
 enum screen
 {
     START,
+
     PROPORTION,
     INTEGRAL,
     DERIVATIVE,
-    TARGET,
+    INTEGRAL_LIMIT,
+
     RUNNING
 };
 
-enum target
+void set_screen(std::unique_ptr<SERLCD_I2C> &lcd, screen new_screen, screen &scr, PID &pid)
 {
-    POSITION,
-    VELOCITY
-};
-
-void set_screen(std::unique_ptr<SERLCD_I2C> &lcd, screen new_screen, screen &scr)
-{
+    std::string line1;
+    std::string line2;
     scr = new_screen;
     switch (scr)
     {
@@ -40,22 +46,30 @@ void set_screen(std::unique_ptr<SERLCD_I2C> &lcd, screen new_screen, screen &scr
     case PROPORTION:
         lcd->clear();
         lcd->backlight(0x00, 0xFF, 0x00);
-        lcd->print("Proportion");
+        line1 = "<- Proportion ->";
+        line2 = std::to_string(pid.get_k_p());
+        lcd->print(line1 + "\n" + line2);
         break;
     case INTEGRAL:
         lcd->clear();
         lcd->backlight(0x00, 0xFF, 0x00);
-        lcd->print("Integral");
+        line1 = "<-  Integral  ->";
+        line2 = std::to_string(pid.get_k_i());
+        lcd->print(line1 + "\n" + line2);
         break;
     case DERIVATIVE:
         lcd->clear();
         lcd->backlight(0x00, 0xFF, 0x00);
-        lcd->print("Derivative");
+        line1 = "<- Derivative ->";
+        line2 = std::to_string(pid.get_k_d());
+        lcd->print(line1 + "\n" + line2);
         break;
-    case TARGET:
+    case INTEGRAL_LIMIT:
         lcd->clear();
         lcd->backlight(0x00, 0xFF, 0x00);
-        lcd->print("Target");
+        line1 = "<- Int Limit  ->";
+        line2 = std::to_string(pid.get_integral_limit());
+        lcd->print(line1 + "\n" + line2);
         break;
     case RUNNING:
         lcd->clear();
@@ -91,125 +105,172 @@ int main()
     auto joystick = std::make_unique<JOYSTICK_I2C>(0x20, I2C);
 
     // Starting state
+    PID pid{};
     screen currentScreen = START;
-    set_screen(lcd, START, currentScreen);
-    target currentTarget = POSITION;
-    double k_p = 0.0;
-    double k_i = 0.0;
-    double k_d = 0.0;
-    double k_p_step = 0.1;
-    double k_i_step = 0.1;
-    double k_d_step = 0.1;
+    set_screen(lcd, START, currentScreen, pid);
+
+    
+    // ONLY FOR DEBUGGING JOYSTICK!
+    while(false) {
+        joystick->update();
+        JoystickStatus status = joystick->get_status();
+        lcd->clear();
+        lcd->backlight(0x00, 0xFF, 0xFF);
+        std::string s;
+        if(joystick->is_left())
+            s = "LEFT";
+        else if(joystick->is_right())
+            s = "RIGHT";
+        else if(joystick->is_up())
+            s = "UP";
+        else if(joystick->is_down())
+            s = "DOWN";
+        else if(joystick->is_pressed())
+            s = "PRESSED";
+        else
+            s = "NONE";
+        lcd->print(s);
+    }
+    
+
 
     long unsigned int count = 0;
     while (true)
     {
+        if(currentScreen != RUNNING) {
+            joystick->update();
+        }
+
         switch (currentScreen)
         {
+        case START:
+            sleep_ms(5000);
+            set_screen(lcd, PROPORTION, currentScreen, pid);
+            break;
         case RUNNING:
             // Only check for joystick motion every 1000 loops, if running
-            if (count++ >= 1000)
+            if (count++ >= 10000)
             {
                 count = 0;
+                joystick->update();
                 if (joystick->any_action())
                 {
-                    set_screen(lcd, PROPORTION, currentScreen);
+                    set_screen(lcd, PROPORTION, currentScreen, pid);
                     // TODO: Set motor to zero
+                    joystick->wait_for_release();
                     continue;
                 }
             }
             rotation = my_encoder.get_rotation();
-            // printf("rotation=%d\n", my_encoder.get_rotation());
+            printf("rotation=%d\n", rotation);
             //  TODO: Calculate PID and set motor
             break;
         case PROPORTION:
             if (joystick->is_right())
             {
-                set_screen(lcd, INTEGRAL, currentScreen);
+                set_screen(lcd, INTEGRAL, currentScreen, pid);
+                joystick->wait_for_release();
             }
             else if (joystick->is_left())
             {
-                set_screen(lcd, TARGET, currentScreen);
+                set_screen(lcd, INTEGRAL_LIMIT, currentScreen, pid);
+                joystick->wait_for_release();
             }
             else if (joystick->is_pressed())
             {
-                set_screen(lcd, RUNNING, currentScreen);
+                set_screen(lcd, RUNNING, currentScreen, pid);
+                joystick->wait_for_release();
             }
             else if (joystick->is_up())
             {
-                k_p += k_p_step;
-                set_screen(lcd, PROPORTION, currentScreen);
+                pid.increment_k_p(P_INC);
+                set_screen(lcd, PROPORTION, currentScreen, pid);
             }
             else if (joystick->is_down())
             {
-                k_p -= k_p_step;
-                set_screen(lcd, PROPORTION, currentScreen);
+                pid.increment_k_p(-P_INC);
+                set_screen(lcd, PROPORTION, currentScreen, pid);
             }
             break;
         case INTEGRAL:
             if (joystick->is_right())
             {
-                set_screen(lcd, DERIVATIVE, currentScreen);
+                set_screen(lcd, DERIVATIVE, currentScreen, pid);
+                joystick->wait_for_release();
             }
             else if (joystick->is_left())
             {
-                set_screen(lcd, PROPORTION, currentScreen);
+                set_screen(lcd, PROPORTION, currentScreen, pid);
+                joystick->wait_for_release();
             }
             else if (joystick->is_pressed())
             {
-                set_screen(lcd, RUNNING, currentScreen);
+                set_screen(lcd, RUNNING, currentScreen, pid);
+                joystick->wait_for_release();
             }
             else if (joystick->is_up())
             {
-                k_i += k_i_step;
-                set_screen(lcd, INTEGRAL, currentScreen);
+                pid.increment_k_i(I_INC);
+                set_screen(lcd, INTEGRAL, currentScreen, pid);
             }
             else if (joystick->is_down())
             {
-                k_i -= k_i_step;
-                set_screen(lcd, INTEGRAL, currentScreen);
+                pid.increment_k_i(-I_INC);
+                set_screen(lcd, INTEGRAL, currentScreen, pid);
             }
             break;
         case DERIVATIVE:
             if (joystick->is_right())
             {
-                set_screen(lcd, TARGET, currentScreen);
+                set_screen(lcd, INTEGRAL_LIMIT, currentScreen, pid);
+                joystick->wait_for_release();
             }
             else if (joystick->is_left())
             {
-                set_screen(lcd, INTEGRAL, currentScreen);
+                set_screen(lcd, INTEGRAL, currentScreen, pid);
+                joystick->wait_for_release();
             }
             else if (joystick->is_pressed())
             {
-                set_screen(lcd, RUNNING, currentScreen);
+                set_screen(lcd, RUNNING, currentScreen, pid);
+                joystick->wait_for_release();
             }
             else if (joystick->is_up())
             {
-                k_d += k_d_step;
-                set_screen(lcd, DERIVATIVE, currentScreen);
+                pid.increment_k_d(D_INC);
+                set_screen(lcd, DERIVATIVE, currentScreen, pid);
             }
             else if (joystick->is_down())
             {
-                k_d -= k_d_step;
-                set_screen(lcd, DERIVATIVE, currentScreen);
+                pid.increment_k_d(-D_INC);
+                set_screen(lcd, DERIVATIVE, currentScreen, pid);
             }
             break;
-        case TARGET:
+        case INTEGRAL_LIMIT:
             if (joystick->is_right())
             {
-                set_screen(lcd, PROPORTION, currentScreen);
+                set_screen(lcd, PROPORTION, currentScreen, pid);
+                joystick->wait_for_release();
             }
             else if (joystick->is_left())
             {
-                set_screen(lcd, DERIVATIVE, currentScreen);
+                set_screen(lcd, DERIVATIVE, currentScreen, pid);
+                joystick->wait_for_release();
             }
             else if (joystick->is_pressed())
             {
-                set_screen(lcd, RUNNING, currentScreen);
+                set_screen(lcd, RUNNING, currentScreen, pid);
+                joystick->wait_for_release();
             }
-            else if (joystick->is_up() || joystick->is_down())
+            else if (joystick->is_up())
             {
-                currentTarget = (currentTarget == POSITION) ? VELOCITY : POSITION;
+                pid.increment_integral_limit(I_LIMIT_INC);
+                set_screen(lcd, INTEGRAL_LIMIT, currentScreen, pid);
+            }
+            else if (joystick->is_down())
+            {
+                pid.increment_integral_limit(-I_LIMIT_INC);
+                set_screen(lcd, INTEGRAL_LIMIT, currentScreen, pid);
             }
             break;
         }

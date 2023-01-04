@@ -134,6 +134,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/openpid.dir/home/cmcollander/pico/pico-sdk/src/rp2_common/pico_unique_id/unique_id.c.obj.d"
   "CMakeFiles/openpid.dir/openpid.cpp.obj"
   "CMakeFiles/openpid.dir/openpid.cpp.obj.d"
+  "CMakeFiles/openpid.dir/pid.cpp.obj"
+  "CMakeFiles/openpid.dir/pid.cpp.obj.d"
   "CMakeFiles/openpid.dir/pio_rotary_encoder.cpp.obj"
   "CMakeFiles/openpid.dir/pio_rotary_encoder.cpp.obj.d"
   "openpid.elf"

@@ -1809,6 +1809,30 @@ openpid.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/openpid.dir/build.make CMakeFiles/openpid.dir/openpid.cpp.s
 .PHONY : openpid.cpp.s
 
+pid.obj: pid.cpp.obj
+.PHONY : pid.obj
+
+# target to build an object file
+pid.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/openpid.dir/build.make CMakeFiles/openpid.dir/pid.cpp.obj
+.PHONY : pid.cpp.obj
+
+pid.i: pid.cpp.i
+.PHONY : pid.i
+
+# target to preprocess a source file
+pid.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/openpid.dir/build.make CMakeFiles/openpid.dir/pid.cpp.i
+.PHONY : pid.cpp.i
+
+pid.s: pid.cpp.s
+.PHONY : pid.s
+
+# target to generate assembly for a file
+pid.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/openpid.dir/build.make CMakeFiles/openpid.dir/pid.cpp.s
+.PHONY : pid.cpp.s
+
 pio_rotary_encoder.obj: pio_rotary_encoder.cpp.obj
 .PHONY : pio_rotary_encoder.obj
 
@@ -2047,6 +2071,9 @@ help:
 	@echo "... openpid.obj"
 	@echo "... openpid.i"
 	@echo "... openpid.s"
+	@echo "... pid.obj"
+	@echo "... pid.i"
+	@echo "... pid.s"
 	@echo "... pio_rotary_encoder.obj"
 	@echo "... pio_rotary_encoder.i"
 	@echo "... pio_rotary_encoder.s"
